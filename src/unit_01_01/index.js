@@ -86,3 +86,15 @@ false == (x > y) // => true: false 和 false 相等
 (x == 2) && (y == 3) // => true: 两个比较都是 true，&& 表示「与」
 (x > 3) || (y < 3) // => false: 两个比较不都是 true，|| 表示「或」
 !(x == y) // => true: ! 求反
+
+// 函数是一段带有参数的 JavaScript 代码端，可以多次调用
+function plus1(x) { // 定义了名为 plus1 的一个函数，带有参数 x
+    return x + 1; // 返回一个比传入的参数大的值
+} // 函数的代码块是由花括号包裹起来的部分
+
+plus1(y) // => 4: y 为 3，调用函数的结果为 3 + 1
+
+var square = function(x) { // 函数是一种值，可以赋值给变量
+    return x * x; // 计算函数的值
+}; // 分号标识了赋值语句的结束
+square(plus1(y)) // => 16: 在一个表达式中调用两个函数
