@@ -82,9 +82,9 @@ x >= y // => false: 大于等于
 'two' > 'three' // => true: 'tw' 在字符表中的索引大于 'th'
 false == (x > y) // => true: false 和 false 相等
 
-// 逻辑运算符是对布尔值的合并或求反
-(x == 2) && (y == 3) // => true: 两个比较都是 true，&& 表示「与」
-(x > 3) || (y < 3) // => false: 两个比较不都是 true，|| 表示「或」
+    // 逻辑运算符是对布尔值的合并或求反
+    (x == 2) && (y == 3) // => true: 两个比较都是 true，&& 表示「与」
+        (x > 3) || (y < 3) // => false: 两个比较不都是 true，|| 表示「或」
 !(x == y) // => true: ! 求反
 
 // 函数是一段带有参数的 JavaScript 代码端，可以多次调用
@@ -94,7 +94,65 @@ function plus1(x) { // 定义了名为 plus1 的一个函数，带有参数 x
 
 plus1(y) // => 4: y 为 3，调用函数的结果为 3 + 1
 
-var square = function(x) { // 函数是一种值，可以赋值给变量
+var square = function (x) { // 函数是一种值，可以赋值给变量
     return x * x; // 计算函数的值
 }; // 分号标识了赋值语句的结束
 square(plus1(y)) // => 16: 在一个表达式中调用两个函数
+
+// 当函数赋值给对象的属性，我们称为「方法」，所以的 JavaScript 对象都含有方法
+var a = []; // 创建一个数组
+a.push(1, 2, 3); // push() 方法向数组中添加元素
+a.reverse(); // 另一个方法：将数组元素的次序反转
+
+// 我们也可以定义自己的方法，「this」关键字是对定义方法的对象的引用
+points.dist = function () {
+    var p1 = this[0];
+    var p2 = this[1];
+    var a = p2.x - p1.x;
+    var b = p2.y - p1.y;
+    return Math.sqrt(a * a + b * b);
+};
+points.dist(); // => 1.414: 求得两个点之间的距离
+
+// 这些 JavaScript 语句使用该语法包含条件判断和循环
+// 使用了类似 C、C++、Java 和其他语言的语法
+function abs(x) { // 求绝对值的函数
+    if (x > 0) return x;
+    return -x;
+}
+
+function factorial(n) { // 计算阶乘的函数
+    var product = 1;
+    while (n > 1) {
+        product *= n;
+        n--;
+    }
+    return product;
+}
+
+factorial(4); // => 24
+
+function factorial2(n) { // 实现循环的另一种写法
+    var i, product = 1;
+    for (i = 2; i <= n; i++) product *= i;
+    return product;
+}
+
+factorial2(5); // => 120
+
+// 定义一个构造函数以初始化一个新的 Point 对象
+function Point(x, y) { // 按照惯例，构造函数均以大写字母开始
+    this.x = x; // 关键字 this 指代初始化的实例
+    this.y = y; // 将函数参数存储为对象的属性
+} // 不需要 return
+
+// 使用 new 关键字和构造函数来创建一个实例
+var p = new Point(1, 1); // 平面几何中的点（1，1）
+
+// 通过给构造函数的 prototype 对象赋值，来给 Point 对象定义方法
+Point.prototype.r = function () {
+    return Math.sqrt(this.x * this.x + this.y * this.y); // this 指代调用这个方法的对象
+};
+
+// Point 的实例对象 p（以及所有的 Point 实例对象）继承了方法 r()
+p.r(); // => 1.414...
