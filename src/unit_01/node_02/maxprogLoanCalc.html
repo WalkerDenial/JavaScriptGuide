@@ -48,7 +48,7 @@
         <td><input id="zipcode" onchange="calculate();" /></td>
       </tr>
       <tr>
-        <td>Approximate Payments:</td>
+        <th>Approximate Payments:</th>
         <td><button onchange="calculate();">Calculate</button></td>
       </tr>
       <tr>
@@ -166,6 +166,34 @@
             ad.innerHTML = "<ul>" + list + "</ul>";
           }
         };
+      }
+
+      function chart(principal, interest, monthly, payments) {
+        var graph = document.getElementById("grapg");
+        graph.width = graph.width;
+
+        if (arguments.length == 0 || !graph.getContext) return;
+
+        var g = graph.getContext("2d");
+        var width = graph.width;
+        var height = graph.height;
+
+        function paymentToX(n) {
+          return (n * width) / payments;
+        }
+        function amountToY(a) {
+          return height - (a * height) / (monthly * payments * 1.05);
+        }
+
+        g.moveTo(paymentToX(0), amountToY(0));
+        g.lineTo(paymentToX(payments));
+        amountToY(monthly * payments);
+        g.lineTo(paymentToX(payments), amountToY(0));
+        g.closePath();
+        g.fillStyle = '#F88';
+        g.fill();
+        g.font = 'bold 12px sans-serif';
+        g.fillText('Total Interest Payments', 20, 20);
       }
     </script>
   </body>
