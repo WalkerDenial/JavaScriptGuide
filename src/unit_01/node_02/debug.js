@@ -16,6 +16,6 @@ function debug(msg) {
     // 将消息包装在 <pre> 中，并添加至 log 中
     var pre = document.createElement('pre'); // 创建 <pre> 标签
     var text = document.createTextNode(msg); // 将 msg 包装在一个文本结点中
-    pre.appendChild(text);
-    log.appendChild(pre);
+    pre.appendChild(text); // 将文本添加至 <pre>
+    log.appendChild(pre); // 将 <pre> 添加至 log
 }
